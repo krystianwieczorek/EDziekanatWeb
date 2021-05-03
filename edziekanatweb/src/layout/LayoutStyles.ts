@@ -9,7 +9,6 @@ export const LayoutStyles = makeStyles((theme: Theme) =>
     },
     appBar: {
       zIndex: theme.zIndex.drawer + 1,
-      backgroundColor: "#a2b29f",
 
       transition: theme.transitions.create(["width", "margin"], {
         easing: theme.transitions.easing.sharp,
@@ -37,7 +36,6 @@ export const LayoutStyles = makeStyles((theme: Theme) =>
     },
     drawerOpen: {
       width: drawerWidth,
-      backgroundColor: "#798777",
 
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
@@ -49,7 +47,6 @@ export const LayoutStyles = makeStyles((theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      backgroundColor: "#798777",
 
       overflowX: "hidden",
       width: theme.spacing(7) + 1,
@@ -69,15 +66,11 @@ export const LayoutStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding: theme.spacing(3),
     },
-    logo: {
-      zoom: 0.3,
-      marginLeft: 80,
-    },
+
     tittle: {
-      color: "#282846",
+      color: "white",
       fontSize: 20,
       fontWeight: 600,
-      textDecoration: "none",
     },
     loginButton: {
       width: "76%",
@@ -86,11 +79,10 @@ export const LayoutStyles = makeStyles((theme: Theme) =>
     link: {
       textDecoration: "none",
     },
-    icon: {
-      color: "white",
-    },
-    listItems: {
-      color: "white",
+    icon: {},
+    listItems: {},
+    button: {
+      margin: theme.spacing(0, 2, 0),
     },
   })
 );

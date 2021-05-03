@@ -22,6 +22,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import logo from "./logo.png";
 import { Button, Grid } from "@material-ui/core";
 import Login from "../screeens/login/Login";
+import Register from "../screeens/register/Register";
+import Home from "../screeens/home/Home";
 import DateRangeIcon from "@material-ui/icons/DateRange";
 
 export default function Layout() {
@@ -64,16 +66,29 @@ export default function Layout() {
             justify="space-between"
             alignItems="center"
           >
-            <a href="/" className={classes.tittle}>
-              E - dziakanat
-            </a>
-            <a href="/">
-              <img src={logo} className={classes.logo} alt="Logo" />
-            </a>
-
+            <Grid item>
+              <a href="/" className={classes.link}>
+                <Typography className={classes.tittle}>E-Dziekanat</Typography>
+              </a>
+            </Grid>
             <Grid item>
               <a href="/login" className={classes.link}>
-                <Button>Zaloguj</Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                >
+                  Login
+                </Button>
+              </a>
+              <a href="/register" className={classes.link}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                >
+                  Register
+                </Button>
               </a>
             </Grid>
           </Grid>
@@ -107,13 +122,13 @@ export default function Layout() {
             <ListItemIcon>
               <DateRangeIcon className={classes.icon} />
             </ListItemIcon>
-            <ListItemText primary={"Umów wizyte"} />
+            <ListItemText primary={"Make an appointment"} />
           </ListItem>
           <ListItem button>
             <ListItemIcon>
               <MailIcon className={classes.icon} />
             </ListItemIcon>
-            <ListItemText primary={"Napisz wiadomość"} />
+            <ListItemText primary={"Write a message"} />
           </ListItem>
         </List>
       </Drawer>
@@ -122,9 +137,14 @@ export default function Layout() {
         <Router>
           <div>
             <Switch>
-              <Route exact path="/"></Route>
+              <Route exact path="/">
+                <Home />
+              </Route>
               <Route path="/login">
                 <Login />
+              </Route>
+              <Route path="/register">
+                <Register />
               </Route>
               <Route>
                 <NotFound />

@@ -1,15 +1,13 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-export const LoginStyles = makeStyles((theme) => ({
+export const RegisterStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
-  avatar: {
-    margin: theme.spacing(1),
-  },
+
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -17,5 +15,4 @@ export const LoginStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  link: {},
 }));
