@@ -1,11 +1,12 @@
 import { AnyAction } from "redux";
 
 const InitialState = {
-  firstName: "",
-  lastName: "",
   email: "",
-  userId: "",
-  channelId: 0,
+  firstName: "",
+  id: "",
+  lastName: "",
+  password: null,
+  userName: "",
   isLogged: false,
 };
 

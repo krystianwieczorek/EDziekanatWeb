@@ -29,22 +29,26 @@ const Home = () => {
           spacing={5}
         >
           <Grid item>
-            <CustomCard
-              name={"Make an appointment"}
-              content={
-                "Choose a free date and apply for a visit to the dean's office."
-              }
-              img={shedule}
-            />
+            <a href="/appointment">
+              <CustomCard
+                name={"Make an appointment"}
+                content={
+                  "Choose a free date and apply for a visit to the dean's office."
+                }
+                img={shedule}
+              />
+            </a>
           </Grid>
           <Grid item>
-            <CustomCard
-              name={"Write a message"}
-              content={
-                "Contact the staff at the dean's office. the employee will write back as soon as possible."
-              }
-              img={message}
-            />
+            <a href="/messenger">
+              <CustomCard
+                name={"Write a message"}
+                content={
+                  "Contact the staff at the dean's office. the employee will write back as soon as possible."
+                }
+                img={message}
+              />
+            </a>
           </Grid>
         </Grid>
       </Grid>

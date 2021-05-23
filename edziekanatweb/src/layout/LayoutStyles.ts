@@ -78,6 +78,7 @@ export const LayoutStyles = makeStyles((theme: Theme) =>
     },
     link: {
       textDecoration: "none",
+      color: "black",
     },
     icon: {},
     listItems: {},
