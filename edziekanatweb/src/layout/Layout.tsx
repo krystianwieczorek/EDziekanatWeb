@@ -33,6 +33,7 @@ import Register from "../screeens/register/Register";
 import Home from "../screeens/home/Home";
 import AppointmentSummary from "../screeens/appointment/AppointmentSummary";
 import Messenger from "../screeens/messenger/Messenger";
+import StudentMessagesList from "../screeens/messenger/StudentMessagesList";
 import AppointmentWrapper from "../screeens/appointment/AppointmentWrapper";
 import DateRangeIcon from "@material-ui/icons/DateRange";
 import { useHistory } from "react-router-dom";
@@ -56,6 +57,7 @@ export default function Layout() {
 
   const role = useSelector(userRoleSelector);
 
+  console.log(isAuthUser);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -176,7 +178,14 @@ export default function Layout() {
                 />
               </ListItem>
             </a>
-            <a href={"/messenger"} className={classes.link}>
+            <a
+              href={
+                role && role[0].toUpperCase() === userRole.Student
+                  ? "/messenger"
+                  : "/list"
+              }
+              className={classes.link}
+            >
               <ListItem button>
                 <ListItemIcon>
                   <MailIcon className={classes.icon} />
@@ -248,6 +257,17 @@ export default function Layout() {
                 render={() =>
                   isAuthUser ? (
                     <AppointmentSummary />
+                  ) : (
+                    <Redirect to={"/login"} />
+                  )
+                }
+              />
+              <Route
+                exact
+                path={"/list"}
+                render={() =>
+                  isAuthUser ? (
+                    <StudentMessagesList />
                   ) : (
                     <Redirect to={"/login"} />
                   )

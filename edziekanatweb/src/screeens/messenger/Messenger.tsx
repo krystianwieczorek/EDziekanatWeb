@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import {
@@ -18,11 +18,14 @@ import * as signalR from "@aspnet/signalr";
 import { useSelector } from "react-redux";
 import {
   deanOfficeIdSelector,
+  studentIdSelector,
   userFirstName,
   userIdSelector,
   userLastName,
+  userRoleSelector,
 } from "../../store/selectors/authSelector";
 import { getConversation } from "../../api/messagesClient";
+import userRole from "../../common/constants/userRole";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -66,53 +69,80 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Messenger() {
   const [connection, setConnetction] = useState<any>(null);
-  const [messages, setMessages] = useState();
+  const [messages, setMessages] = useState<any>([]);
 
-  const userId = useSelector(userIdSelector);
+  const loggedUserId = useSelector(userIdSelector);
   const firstName = useSelector(userFirstName);
   const lastName = useSelector(userLastName);
   const deansOfficeId = useSelector(deanOfficeIdSelector);
+  const studentId = useSelector(studentIdSelector);
+  const role = useSelector(userRoleSelector);
 
   const classes = useStyles();
 
   const { register, handleSubmit, watch, control, reset } = useForm();
 
+  const messagesEndRef = useRef<any>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   const connectionHub = new signalR.HubConnectionBuilder()
     .withUrl("https://localhost:44313/chatHub")
     .build();
 
-  // useEffect(scrollToBottom, [messages]);
+  useEffect(scrollToBottom, [messages]);
 
   useEffect(() => {
-    getConversation(userId, deansOfficeId).then((response) => {
+    getConversation(
+      role && role[0].toUpperCase() === userRole.Student
+        ? loggedUserId
+        : studentId,
+      deansOfficeId
+    ).then((response) => {
       // console.log(response);
       setMessages(response.data);
     });
   }, []);
 
   useEffect(() => {
-    connectionHub.on("ReceiveMessage", (response) => {
-      console.log(response);
+    connectionHub.on("ReceiveMessage", (response: any) => {
+      console.log(response.rootElement);
       setMessages(response.rootElement);
     });
     connectionHub
       .start()
-      .then(function() {
-        console.log("connection start");
+      .then((res) => {
+        connectionHub
+          .invoke(
+            "AddToGroup",
+            `${
+              role && role[0].toUpperCase() === userRole.Student
+                ? loggedUserId
+                : studentId
+            }-${deansOfficeId}`
+          )
+          .catch((err) => {
+            console.log(err);
+          });
       })
-      .catch(function(err) {
-        return console.error(err.toString());
+      .catch((err) => {
+        console.log(err);
       });
     setConnetction(connectionHub);
   }, []);
 
   const onSubmit = (data: any) => {
     reset({ text: "" });
-    data.userId = userId;
+    data.userId = loggedUserId;
     data.firstName = firstName;
     data.lastName = lastName;
     data.deansOfficeId = deansOfficeId;
-    data.studentId = userId;
+    data.studentId =
+      role && role[0].toUpperCase() === userRole.Student
+        ? loggedUserId
+        : studentId;
     // console.log(data);
     connection.invoke("SendPrivateMessage", data).catch(function(err: any) {
       console.log(err);
@@ -137,31 +167,24 @@ export default function Messenger() {
           >
             <Grid item className={classes.messageCOntainer}>
               <List className={classes.list}>
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar
-                      alt="Cindy Baker"
-                      src="/static/images/avatar/3.jpg"
-                    />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Oui Oui"
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          component="span"
-                          variant="body2"
-                          className={classes.inline}
-                          color="textPrimary"
-                        >
-                          Sandra Adams
-                        </Typography>
-                        {" — Do you have Paris recommendations? Have you ever…"}
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>
-                <Divider variant="inset" component="li" />
+                {messages.map((item: any, key: number) => (
+                  <>
+                    <ListItem alignItems="flex-start">
+                      <ListItemAvatar>
+                        <Avatar
+                          alt={item.firstName}
+                          src="/static/images/avatar/3.jpg"
+                        />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={`${item.firstName} ${item.lastName}`}
+                        secondary={<React.Fragment>{item.text}</React.Fragment>}
+                      />
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                  </>
+                ))}
+                <div ref={messagesEndRef} />
               </List>
             </Grid>
             <Grid item className={classes.width100}>

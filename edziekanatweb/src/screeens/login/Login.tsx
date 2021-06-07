@@ -29,7 +29,6 @@ const Login = () => {
   const onClick = useCallback(
     (data: any) => {
       setIsLoading(true);
-      console.log(isLoading);
       setTimeout(() => {
         try {
           loginRequest(data).then((response: any) => {
@@ -46,7 +45,7 @@ const Login = () => {
         }
       }, 2000);
     },
-    [isLoading, history, dispatch]
+    [history, dispatch]
   );
 
   return (

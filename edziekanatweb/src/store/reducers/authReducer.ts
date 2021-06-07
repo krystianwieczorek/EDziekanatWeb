@@ -8,10 +8,10 @@ const InitialState = {
     lastName: "",
     password: null,
     userName: "",
-    isLogged: false,
     grantedRoleIds: "",
     deansOfficeId: "",
   },
+  isLogged: false,
   grantedRoleIds: [""],
 };
 
@@ -21,6 +21,12 @@ export const authReducer = (state = InitialState, action: AnyAction) => {
       return {
         ...state,
         data: action.data,
+        isLogged: true,
+      };
+    case "STUDENTID":
+      return {
+        ...state,
+        studentId: action.data,
         isLogged: true,
       };
     case "SIGNOUT":

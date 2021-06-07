@@ -7,6 +7,11 @@ export const loggedInSelector = createSelector(
   (state: any) => state.isLogged
 );
 
+export const studentIdSelector = createSelector(
+  authSelector,
+  (state: any) => state.studentId
+);
+
 export const userIdSelector = createSelector(
   authSelector,
   (state: any) => state?.data?.user.id

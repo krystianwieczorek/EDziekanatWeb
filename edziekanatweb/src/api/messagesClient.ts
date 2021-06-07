@@ -6,3 +6,9 @@ export const getConversation = (studentId: string, deansOfficeId: string) => {
   );
   return response;
 };
+export const getStudentsWhichHaveConversation = (deansOfficeId: string) => {
+  const response = apiClient.get(
+    `/api/Messages/GetStudentsWhichHaveConversation?&deansOfficeId=${deansOfficeId}`
+  );
+  return response;
+};
