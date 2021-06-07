@@ -18,7 +18,11 @@ import {
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import CustomModal from "../../components/CustomModal";
 import { useSelector } from "react-redux";
-import { userIdSelector } from "../../store/selectors/authSelector";
+import {
+  deanOfficeIdSelector,
+  userIdSelector,
+  userRoleSelector,
+} from "../../store/selectors/authSelector";
 import Loader from "../../components/Loader";
 
 const Appointment = () => {
@@ -31,9 +35,9 @@ const Appointment = () => {
   const [isLoading, setIsLoading] = useState<boolean>();
   const [date, setDate] = useState<any>();
   const classes = AppointmentStyles();
-  const studentId = useSelector(userIdSelector);
 
-  let deansOfficeId = "1a7258e3-df7b-4820-9ad5-ee2caa54d585";
+  const studentId = useSelector(userIdSelector);
+  const deansOfficeId = useSelector(deanOfficeIdSelector);
 
   useEffect(() => {
     GetReservationsAvailableDaysForCurrentMonth(deansOfficeId).then(

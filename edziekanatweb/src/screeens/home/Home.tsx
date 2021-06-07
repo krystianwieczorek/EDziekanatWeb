@@ -3,8 +3,14 @@ import logo from "../../layout/logo.png";
 import CustomCard from "../../components/CustomCard";
 import message from "../../static/images/message.jpg";
 import shedule from "../../static/images/shedule.jpg";
+import { useSelector } from "react-redux";
+import { userRoleSelector } from "../../store/selectors/authSelector";
+import userRole from "../../common/constants/userRole";
+import ChatBot from "react-simple-chatbot";
 
 const Home = () => {
+  const role = useSelector(userRoleSelector);
+
   return (
     <Grid
       container
@@ -31,9 +37,15 @@ const Home = () => {
           <Grid item>
             <a href="/appointment">
               <CustomCard
-                name={"Make an appointment"}
+                name={
+                  role && role[0].toUpperCase() === userRole.Student
+                    ? "Make an appointment"
+                    : "Students reservations"
+                }
                 content={
-                  "Choose a free date and apply for a visit to the dean's office."
+                  role && role[0].toUpperCase() === userRole.Student
+                    ? "Choose a free date and apply for a visit to the dean's office."
+                    : ""
                 }
                 img={shedule}
               />
@@ -42,13 +54,37 @@ const Home = () => {
           <Grid item>
             <a href="/messenger">
               <CustomCard
-                name={"Write a message"}
+                name={
+                  role && role[0].toUpperCase() === userRole.Student
+                    ? "Write a message"
+                    : "Students messages"
+                }
                 content={
-                  "Contact the staff at the dean's office. the employee will write back as soon as possible."
+                  role && role[0].toUpperCase() === userRole.Student
+                    ? "Contact the staff at the dean's office. the employee will write back as soon as possible."
+                    : ""
                 }
                 img={message}
               />
             </a>
+          </Grid>
+          <Grid item>
+            <div>
+              <ChatBot
+                steps={[
+                  {
+                    id: "0",
+                    message: "Welcome to react chatbot!",
+                    trigger: "1",
+                  },
+                  {
+                    id: "1",
+                    message: "Bye!",
+                    end: true,
+                  },
+                ]}
+              />
+            </div>
           </Grid>
         </Grid>
       </Grid>

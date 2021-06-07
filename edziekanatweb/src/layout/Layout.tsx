@@ -33,12 +33,18 @@ import Register from "../screeens/register/Register";
 import Home from "../screeens/home/Home";
 import AppointmentSummary from "../screeens/appointment/AppointmentSummary";
 import Messenger from "../screeens/messenger/Messenger";
-import Appointment from "../screeens/appointment/Appointment";
+import AppointmentWrapper from "../screeens/appointment/AppointmentWrapper";
 import DateRangeIcon from "@material-ui/icons/DateRange";
 import { useHistory } from "react-router-dom";
-import { loggedInSelector } from "../store/selectors/authSelector";
+import {
+  loggedInSelector,
+  userRoleSelector,
+} from "../store/selectors/authSelector";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutAction } from "../store/actions/logOutAction";
+import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
+import userRole from "../common/constants/userRole";
+import ChatBot from "react-simple-chatbot";
 
 export default function Layout() {
   const classes = LayoutStyles();
@@ -47,6 +53,8 @@ export default function Layout() {
   const history = useHistory();
   const isAuthUser = useSelector(loggedInSelector);
   const dispatch = useDispatch();
+
+  const role = useSelector(userRoleSelector);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -159,7 +167,13 @@ export default function Layout() {
                 <ListItemIcon>
                   <DateRangeIcon className={classes.icon} />
                 </ListItemIcon>
-                <ListItemText primary={"Make an appointment"} />
+                <ListItemText
+                  primary={
+                    role && role[0].toUpperCase() === userRole.Student
+                      ? "Make an appointment"
+                      : "Students reservations"
+                  }
+                />
               </ListItem>
             </a>
             <a href={"/messenger"} className={classes.link}>
@@ -167,9 +181,27 @@ export default function Layout() {
                 <ListItemIcon>
                   <MailIcon className={classes.icon} />
                 </ListItemIcon>
-                <ListItemText primary={"Write a message"} />
+                <ListItemText
+                  primary={
+                    role && role[0].toUpperCase() === userRole.Student
+                      ? "Write a message"
+                      : "Students message"
+                  }
+                />
               </ListItem>
             </a>
+            {role && role[0].toUpperCase() === userRole.Student ? (
+              <a href={"/appointmentSummary"} className={classes.link}>
+                <ListItem button>
+                  <ListItemIcon>
+                    <AssignmentTurnedInIcon className={classes.icon} />
+                  </ListItemIcon>
+                  <ListItemText primary={"Appointment summary"} />
+                </ListItem>
+              </a>
+            ) : (
+              <></>
+            )}
           </List>
         </Drawer>
       ) : null}
@@ -192,19 +224,57 @@ export default function Layout() {
               <Route path="/register">
                 <Register />
               </Route>
-              <Route path="/messenger">
-                <Messenger />
-              </Route>
-              <Route path="/appointment">
-                <Appointment />
-              </Route>
-              <Route path="/appointmentSummary">
-                <AppointmentSummary />
-              </Route>
+              <Route
+                exact
+                path={"/messenger"}
+                render={() =>
+                  isAuthUser ? <Messenger /> : <Redirect to={"/login"} />
+                }
+              />
+              <Route
+                exact
+                path={"/appointment"}
+                render={() =>
+                  isAuthUser ? (
+                    <AppointmentWrapper />
+                  ) : (
+                    <Redirect to={"/login"} />
+                  )
+                }
+              />
+              <Route
+                exact
+                path={"/appointmentSummary"}
+                render={() =>
+                  isAuthUser ? (
+                    <AppointmentSummary />
+                  ) : (
+                    <Redirect to={"/login"} />
+                  )
+                }
+              />
               <Route>
                 <NotFound />
               </Route>
             </Switch>
+            {/* <div style={{ right: 10 }}>
+              <div>
+                <ChatBot
+                  steps={[
+                    {
+                      id: "0",
+                      message: "Welcome to react chatbot!",
+                      trigger: "1",
+                    },
+                    {
+                      id: "1",
+                      message: "Bye!",
+                      end: true,
+                    },
+                  ]}
+                />
+              </div>
+            </div> */}
           </div>
         </Router>
       </main>

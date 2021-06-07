@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import List from "@material-ui/core/List";
@@ -29,10 +29,12 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function NestedList(props: any) {
   const { reservations, studentId } = props;
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [element, setElement] = useState("");
+  const [open, setOpen] = useState(false);
 
   const handleClick = (key: any) => {
-    setOpen(key);
+    setElement(key);
+    setOpen(!open);
   };
 
   const handleCancelReservation = (id: any) => {
@@ -48,9 +50,15 @@ export default function NestedList(props: any) {
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
-        <ListSubheader component="div" id="nested-list-subheader">
-          Active Reservations of student: {studentId}
-        </ListSubheader>
+        props.isEmployeeView ? (
+          <ListSubheader component="div" id="nested-list-subheader">
+            Active reservations for students
+          </ListSubheader>
+        ) : (
+          <ListSubheader component="div" id="nested-list-subheader">
+            Active reservations of student: {studentId}
+          </ListSubheader>
+        )
       }
       className={classes.root}
     >
@@ -60,10 +68,20 @@ export default function NestedList(props: any) {
             <ListItemIcon>
               <UpdateIcon />
             </ListItemIcon>
-            <ListItemText primary={`${new Date(item.date).toLocaleString()}`} />
-            {open === key ? <ExpandLess /> : <ExpandMore />}
+            {props.isEmployeeView ? (
+              <ListItemText
+                primary={`${new Date(item.date).toLocaleString()} ${
+                  item.firstName
+                } ${item.lastName}`}
+              />
+            ) : (
+              <ListItemText
+                primary={`${new Date(item.date).toLocaleString()}`}
+              />
+            )}
+            {element === key && open ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
-          <Collapse in={open === key} timeout="auto" unmountOnExit>
+          <Collapse in={element === key && open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItem
                 button
@@ -73,7 +91,7 @@ export default function NestedList(props: any) {
                 <ListItemIcon>
                   <HighlightOffIcon />
                 </ListItemIcon>
-                <ListItemText primary="Cancel Reservation" />
+                <ListItemText primary="Cancel reservation" />
               </ListItem>
             </List>
           </Collapse>

@@ -1,13 +1,18 @@
 import { AnyAction } from "redux";
 
 const InitialState = {
-  email: "",
-  firstName: "",
-  id: "",
-  lastName: "",
-  password: null,
-  userName: "",
-  isLogged: false,
+  user: {
+    email: "",
+    firstName: "",
+    id: "",
+    lastName: "",
+    password: null,
+    userName: "",
+    isLogged: false,
+    grantedRoleIds: "",
+    deansOfficeId: "",
+  },
+  grantedRoleIds: [""],
 };
 
 export const authReducer = (state = InitialState, action: AnyAction) => {

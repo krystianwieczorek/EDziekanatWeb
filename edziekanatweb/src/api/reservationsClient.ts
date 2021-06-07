@@ -28,6 +28,12 @@ export const GetAllCurrentReservationsForStudent = (studentId: any) => {
   );
   return response;
 };
+export const GetReservationsByDeansOfficeId = (deansOfficeId: any) => {
+  const response = apiClient.get(
+    `/api/Reservations/GetReservationsByDeansOfficeId?deansOfficeId=${deansOfficeId}`
+  );
+  return response;
+};
 
 export const CancelReservation = (id: any) => {
   const response = apiClient.post(

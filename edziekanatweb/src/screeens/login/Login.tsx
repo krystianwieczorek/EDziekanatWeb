@@ -33,8 +33,8 @@ const Login = () => {
       setTimeout(() => {
         try {
           loginRequest(data).then((response: any) => {
-            console.log(response.data.user.user);
-            dispatch(loggInAction(response.data.user.user));
+            console.log(response.data.user);
+            dispatch(loggInAction(response.data.user));
             if (response.status === 200) {
               history.push("/");
             }
