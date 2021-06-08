@@ -12,6 +12,7 @@ import InboxIcon from "@material-ui/icons/Inbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
 import { AppointmentStyles } from "./AppointmentStyles";
 import {
+  GetAvailableOperationsByDeansOfficeId,
   GetReservationsAvailableDaysForCurrentMonth,
   GetReservationsAvailableHoursForChoosenDay,
 } from "../../api/reservationsClient";
@@ -24,14 +25,18 @@ import {
   userRoleSelector,
 } from "../../store/selectors/authSelector";
 import Loader from "../../components/Loader";
+import AssistantIcon from "@material-ui/icons/Assistant";
 
 const Appointment = () => {
   const [value, onChange] = useState<any>(new Date());
   const [selectedIndex, setSelectedIndex] = useState<number>();
+  const [selectedIndexNext, setSelectedIndexNext] = useState<number>();
   const [availableDays, setAvailableDays] = useState<any>();
   const [availableHours, setAvailableHours] = useState<any>();
   const [isOpenModal, setIsOpenModal] = useState<any>(false);
   const [fullDate, setFullDate] = useState<any>();
+  const [operations, setOperations] = useState<any[]>([]);
+  const [choosedOperation, setChoosedOperation] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>();
   const [date, setDate] = useState<any>();
   const classes = AppointmentStyles();
@@ -44,6 +49,12 @@ const Appointment = () => {
       (response) => {
         console.log(response.data);
         setAvailableDays(response.data);
+      }
+    );
+
+    GetAvailableOperationsByDeansOfficeId(deansOfficeId).then(
+      (response: any) => {
+        setOperations(response.data);
       }
     );
   }, [deansOfficeId]);
@@ -66,6 +77,11 @@ const Appointment = () => {
     console.log(date + " " + item);
   };
 
+  const handleNextListItemClick = (key: number, item: any) => {
+    setSelectedIndexNext(key);
+    setChoosedOperation(item);
+  };
+
   const handleModalClose = () => {
     setIsOpenModal(false);
   };
@@ -81,6 +97,7 @@ const Appointment = () => {
               date={fullDate}
               deansOfficeId={deansOfficeId}
               studentId={studentId}
+              choosedOperation={choosedOperation}
               setIsLoading={setIsLoading}
             />
           )}
@@ -123,6 +140,29 @@ const Appointment = () => {
                   <div className={classes.root}>
                     <List component="nav" aria-label="main mailbox folders">
                       {availableHours &&
+                        operations.map((item: any, key: any) => (
+                          <ListItem
+                            button
+                            selected={selectedIndexNext === key}
+                            onClick={(event) =>
+                              handleNextListItemClick(key, item)
+                            }
+                          >
+                            <ListItemIcon>
+                              <AssistantIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={item} />
+                          </ListItem>
+                        ))}
+                    </List>
+                  </div>
+                </div>
+              </Grid>
+              <Grid item>
+                <div className={classes.listContainer}>
+                  <div className={classes.root}>
+                    <List component="nav" aria-label="main mailbox folders">
+                      {choosedOperation &&
                         availableHours.map((item: any, key: any) => (
                           <ListItem
                             button

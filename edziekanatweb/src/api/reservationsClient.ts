@@ -6,6 +6,12 @@ export const GetReservationsAvailableDaysForCurrentMonth = (id: any) => {
   );
   return response;
 };
+export const GetAvailableOperationsByDeansOfficeId = (id: any) => {
+  const response = apiClient.get(
+    `/api/Reservations/GetAvailableOperationsByDeansOfficeId?deansOfficeId=${id}`
+  );
+  return response;
+};
 
 export const GetReservationsAvailableHoursForChoosenDay = (
   id: any,

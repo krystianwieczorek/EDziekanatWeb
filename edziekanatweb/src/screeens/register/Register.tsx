@@ -198,6 +198,7 @@ const Register = () => {
                     fullWidth
                     id="password"
                     label="Password"
+                    type="password"
                     name="password"
                     autoComplete="password"
                     helperText={error ? error.message : null}

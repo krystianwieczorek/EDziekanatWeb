@@ -70,9 +70,9 @@ export default function NestedList(props: any) {
             </ListItemIcon>
             {props.isEmployeeView ? (
               <ListItemText
-                primary={`${new Date(item.date).toLocaleString()} ${
+                primary={`${new Date(item.date).toLocaleString()} - ${
                   item.firstName
-                } ${item.lastName}`}
+                } ${item.lastName} - ${item.operationName}`}
               />
             ) : (
               <ListItemText

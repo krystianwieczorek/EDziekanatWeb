@@ -109,6 +109,7 @@ const Login = () => {
                     id="password"
                     label="Password"
                     name="password"
+                    type="password"
                     autoComplete="password"
                     helperText={error ? error.message : null}
                   />

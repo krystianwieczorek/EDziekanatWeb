@@ -10,8 +10,14 @@ import { useHistory } from "react-router";
 import Loader from "./Loader";
 
 export default function CustomModal(props: any) {
-  const { handleModalClose, date, deansOfficeId, studentId, setIsLoading } =
-    props;
+  const {
+    handleModalClose,
+    date,
+    deansOfficeId,
+    studentId,
+    setIsLoading,
+    choosedOperation,
+  } = props;
   const history = useHistory();
 
   const handleClick = useCallback(() => {
@@ -19,6 +25,7 @@ export default function CustomModal(props: any) {
       date: date,
       deansOfficeId: deansOfficeId,
       studentId: studentId,
+      operationName: choosedOperation,
     };
     setIsLoading(true);
     setTimeout(() => {
