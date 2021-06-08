@@ -104,7 +104,7 @@ const Home = () => {
             </div>
           </Grid>
           <Grid item>
-            <a href="/messenger">
+            <a href={role && role[0].toUpperCase() === userRole.Student ? "/messenger" : "/list"}>
               <CustomCard
                 name={
                   role && role[0].toUpperCase() === userRole.Student
