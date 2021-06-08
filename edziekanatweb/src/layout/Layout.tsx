@@ -111,7 +111,7 @@ export default function Layout() {
                     localStorage.clear();
                   }}
                 >
-                  Logut
+                  Wyloguj
                 </Button>
               ) : (
                 <a href="/login" className={classes.link}>
@@ -120,7 +120,7 @@ export default function Layout() {
                     color="primary"
                     className={classes.button}
                   >
-                    Login
+                    Zaloguj się
                   </Button>
                 </a>
               )}
@@ -131,7 +131,7 @@ export default function Layout() {
                     color="primary"
                     className={classes.button}
                   >
-                    Register
+                    Rejestracja
                   </Button>
                 </a>
               )}
@@ -172,8 +172,8 @@ export default function Layout() {
                 <ListItemText
                   primary={
                     role && role[0].toUpperCase() === userRole.Student
-                      ? "Make an appointment"
-                      : "Students reservations"
+                      ? "Zarezerwuj wizytę"
+                      : "Rezerwacje studentów"
                   }
                 />
               </ListItem>
@@ -193,8 +193,8 @@ export default function Layout() {
                 <ListItemText
                   primary={
                     role && role[0].toUpperCase() === userRole.Student
-                      ? "Write a message"
-                      : "Students message"
+                      ? "Napisz wiadomość"
+                      : "Wiadomości studentów"
                   }
                 />
               </ListItem>
@@ -205,7 +205,7 @@ export default function Layout() {
                   <ListItemIcon>
                     <AssignmentTurnedInIcon className={classes.icon} />
                   </ListItemIcon>
-                  <ListItemText primary={"Appointment summary"} />
+                  <ListItemText primary={"Moje rezerwacje"} />
                 </ListItem>
               </a>
             ) : (

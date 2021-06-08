@@ -108,7 +108,7 @@ const Appointment = () => {
             alignItems="center"
           >
             <Grid item>
-              <h1>Appointment</h1>
+              <h1>Zarezerwuj wizytę w dziekanacie</h1>
             </Grid>
             <Grid container direction="row" space-around justify="space-evenly">
               <Grid item>

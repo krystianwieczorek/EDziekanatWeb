@@ -52,12 +52,12 @@ const Home = () => {
               <CustomCard
                 name={
                   role && role[0].toUpperCase() === userRole.Student
-                    ? "Make an appointment"
-                    : "Students reservations"
+                    ? "Zarezerwuj wizytę"
+                    : "Rezerwacje studentów"
                 }
                 content={
                   role && role[0].toUpperCase() === userRole.Student
-                    ? "Choose a free date and apply for a visit to the dean's office."
+                    ? "Wybierz wolny termin, aby zarezerwować wizytę w dziekanacie."
                     : ""
                 }
                 img={shedule}
@@ -71,14 +71,14 @@ const Home = () => {
                   steps={[
                     {
                       id: "1",
-                      message: "o co chcesz zapytać?",
+                      message: "O co chcesz zapytać?",
                       trigger: "2",
                     },
                     {
                       id: "2",
                       options: [
                         { value: 1, label: "Numer telefonu", trigger: "3" },
-                        { value: 2, label: "email", trigger: "4" },
+                        { value: 2, label: "Email", trigger: "4" },
                         { value: 3, label: "Godziny przyjęć", trigger: "5" },
                       ],
                     },
@@ -95,7 +95,7 @@ const Home = () => {
                     {
                       id: "5",
                       message:
-                        "Pn nieczynny Wt 1030 - 1430 Śr 1030 - 1430 Czw 1030 - 1430 Pt 1030 - 1430 Sb 800-1300 (tylko w czasie zjazdów na studiach niestacjonarnych)",
+                        "Pn nieczynny Wt 10:30-14:30 Śr 10:30-14:30 Czw 10:30-14:30 Pt 10:30-14:30 Sb 8:00-13:00 (tylko w czasie zjazdów na studiach niestacjonarnych)",
                       trigger: "2",
                     },
                   ]}
@@ -108,12 +108,12 @@ const Home = () => {
               <CustomCard
                 name={
                   role && role[0].toUpperCase() === userRole.Student
-                    ? "Write a message"
-                    : "Students messages"
+                    ? "Napisz wiadomość"
+                    : "Wiadomości studentów"
                 }
                 content={
                   role && role[0].toUpperCase() === userRole.Student
-                    ? "Contact the staff at the dean's office. the employee will write back as soon as possible."
+                    ? "Nawiąż kontakt z pracownikiem dziekanatu. Odpowiedź uzyskasz tak szybko jak to możliwe."
                     : ""
                 }
                 img={message}

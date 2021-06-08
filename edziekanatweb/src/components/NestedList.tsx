@@ -52,11 +52,11 @@ export default function NestedList(props: any) {
       subheader={
         props.isEmployeeView ? (
           <ListSubheader component="div" id="nested-list-subheader">
-            Active reservations for students
+            Rezerwacje studentów
           </ListSubheader>
         ) : (
           <ListSubheader component="div" id="nested-list-subheader">
-            Active reservations of student: {studentId}
+            Rezerwacje studenta: {studentId}
           </ListSubheader>
         )
       }

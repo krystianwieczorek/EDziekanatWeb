@@ -59,7 +59,7 @@ export default function StudentMessagesList() {
       aria-labelledby="nested-list-subheader"
       subheader={
         <ListSubheader component="div" id="nested-list-subheader">
-          Student conversations
+          Wiadomości studentów
         </ListSubheader>
       }
       className={classes.root}

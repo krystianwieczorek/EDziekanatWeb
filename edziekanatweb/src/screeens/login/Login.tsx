@@ -60,7 +60,7 @@ const Login = () => {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Logowanie
             </Typography>
             <form className={classes.form} onSubmit={handleSubmit(onClick)}>
               <Controller
@@ -79,7 +79,7 @@ const Login = () => {
                     onChange={onChange}
                     fullWidth
                     id="userNameOrEmail"
-                    label="Email Address"
+                    label="Email"
                     name="email"
                     autoComplete="email"
                     autoFocus
@@ -107,7 +107,7 @@ const Login = () => {
                     onChange={onChange}
                     fullWidth
                     id="password"
-                    label="Password"
+                    label="Hasło"
                     name="password"
                     type="password"
                     autoComplete="password"
@@ -124,7 +124,7 @@ const Login = () => {
                 color="primary"
                 className={classes.submit}
               >
-                Sign In
+                Zaloguj się
               </Button>
             </form>
           </div>

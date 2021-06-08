@@ -53,19 +53,19 @@ export default function CustomModal(props: any) {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Reservation confirmation"}
+          {"Potwierdź rezerwacje"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Confirm reservation on {date} .
+            Czy potwierdzasz rezerwację w dniu {date} .
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleModalClose} color="primary">
-            Disagree
+            Anuluj
           </Button>
           <Button onClick={handleClick} color="primary">
-            Agree
+            Potwierdzam
           </Button>
         </DialogActions>
       </Dialog>

@@ -72,7 +72,7 @@ const Register = () => {
               <VpnKeyIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign up
+              Rejestracja
             </Typography>
             <form className={classes.form} onSubmit={handleSubmit(onClick)}>
               <Controller
@@ -91,7 +91,7 @@ const Register = () => {
                     onChange={onChange}
                     fullWidth
                     id="email"
-                    label="Email Address"
+                    label="Email"
                     name="email"
                     autoComplete="email"
                     autoFocus
@@ -145,7 +145,7 @@ const Register = () => {
                     onChange={onChange}
                     fullWidth
                     id="firstName"
-                    label="Firstname"
+                    label="Imię"
                     name="firstName"
                     autoComplete="firstName"
                     helperText={error ? error.message : null}
@@ -171,7 +171,7 @@ const Register = () => {
                     onChange={onChange}
                     fullWidth
                     id="emlastNameail"
-                    label="Lastname"
+                    label="Nazwisko"
                     name="lastName"
                     autoComplete="lastName"
                     helperText={error ? error.message : null}
@@ -197,7 +197,7 @@ const Register = () => {
                     onChange={onChange}
                     fullWidth
                     id="password"
-                    label="Password"
+                    label="Hasło"
                     type="password"
                     name="password"
                     autoComplete="password"
@@ -220,14 +220,14 @@ const Register = () => {
                     variant="outlined"
                     className={classes.formControl}
                   >
-                    <InputLabel id="Department">Department</InputLabel>
+                    <InputLabel id="Department">Wydział</InputLabel>
                     <Select
                       error={!!error}
                       labelId="Department"
                       id="Department"
                       value={value}
                       onChange={onChange}
-                      label="Department"
+                      label="Wydział"
                     >
                       {deparmentsData.map((item: any, key: any) => (
                         <MenuItem
@@ -256,14 +256,14 @@ const Register = () => {
                     variant="outlined"
                     className={classes.formControl}
                   >
-                    <InputLabel id="DeanOffice">Dean Office</InputLabel>
+                    <InputLabel id="DeanOffice">Dziekanat</InputLabel>
                     <Select
                       error={!!error}
                       labelId="DeanOffice"
                       id="DeanOffice"
                       value={value}
                       onChange={onChange}
-                      label="DeanOffice"
+                      label="Dziekanat"
                       defaultValue={"Ten"}
                     >
                       {deanOffice.map((item: any, key: any) => (
@@ -283,7 +283,7 @@ const Register = () => {
                 className={classes.submit}
                 color="primary"
               >
-                Sign up
+                Zarejestruj się
               </Button>
             </form>
           </div>
